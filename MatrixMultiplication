@@ -1,0 +1,39 @@
+#define SIZE 10
+
+LL dummy[SIZE][SIZE], TDash[SIZE][SIZE];
+void mul(LL A[SIZE][SIZE], LL B[SIZE][SIZE], LL C[SIZE][SIZE])
+{
+	REP(i,SIZE)
+		REP(j,SIZE)
+			dummy[i][j] = 0;
+	REP(i,SIZE)
+		REP(j,SIZE)
+			REP(k,SIZE)
+				dummy[i][j] = (dummy[i][j]+((A[i][k]*B[k][j])))%mod;
+	REP(i,SIZE)
+		REP(j,SIZE)
+			C[i][j] = dummy[i][j];
+}
+
+// Raise A ^ n and store result in B
+// Caveat: Don't pass same arrays for both A and B
+void powerT(LL A[SIZE][SIZE], int n, LL B[SIZE][SIZE])
+{
+	REP(i,SIZE){
+		REP(j,SIZE){
+			B[i][j] = 0;  
+		}
+	}
+	REP(i,SIZE){
+		B[i][i] = 1;  
+	}
+	while(n){
+		if(n&1)	mul(B, A, B);  
+		mul(A, A, A);
+		n >>= 1;
+	}
+}
+
+void createT()
+{
+}

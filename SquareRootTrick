@@ -1,0 +1,17 @@
+// INPUT === n
+int d = 1;
+for(; d*d <= n; d++){
+	// do something with
+	// n/d
+}
+
+d = n/d;
+x = d;
+int lower, upper, freq;
+for(; d > 0; d--){
+	lower = (n/(x+1))+1;
+	upper = n/x;
+	freq = upper-lower+1;
+	// do something with x and freq, like:
+	// freq*phi[x]
+}

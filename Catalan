@@ -1,0 +1,10 @@
+LL catalan[MAXN] = {0};
+void precomp_catalan()
+{
+	catalan[1] = (catalan[0] = 1);  
+	REPc(i,1,MAXN-1){
+		REP(j,i){
+			catalan[i] = (catalan[i]+(catalan[j]*catalan[i-1-j])%mod)%mod;
+		}
+	}
+}
