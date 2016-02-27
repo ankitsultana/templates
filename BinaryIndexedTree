@@ -8,9 +8,7 @@ public:
 		bit.resize(n+1);  
 	}
 	void reset() {
-		REP(i,n+1) {
-			bit[i] = 0;  
-		}
+		for(int i = 0; i <= n; i++)	bit[i] = 0;  
 	}
 	void update(int u, T v) {
 		while(u <= n) {
@@ -25,8 +23,7 @@ public:
 		T res = 0;
 		while(u >= 0) {
 			res = res + bit[u];
-			if(res >= mod)
-				res -= mod;
+			if(res >= mod)	res -= mod;
 			u = (u & (u+1)) - 1;
 		}
 		return res;

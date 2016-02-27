@@ -5,7 +5,7 @@ class UnionFind{
 		UnionFind(int x)
 		{
 			V = x;
-			REPc(i,0,x)
+			for(int i = 0; i <= x; i++)
 				Rank[i] = 1, P[i] = i;
 		}
 

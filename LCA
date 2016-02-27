@@ -1,50 +1,35 @@
+/* LCA BEGIN */
 #define MAXLOGN 19
-
 int pa[MAXN][MAXLOGN];
 int depth[MAXN] = {0};
 
-void DFS(int node = 1, int prev = -1, int d = 0)
-{
+void lca_dfs(int node = 1, int prev = -1, int d = 0) {
 	depth[node] = d;
 	pa[node][0] = prev;
 	int sz = int(adj[node].size());
-	REP(i,sz){
+	for(int i = 0; i < sz; i++) {
 		if(adj[node][i] == prev)	continue;
-		DFS(adj[node][i], node, d+1);
+		lca_dfs(adj[node][i], node, d+1);
 	}
 }
-
-// Calculate pa[i][0] before this
-// and make default value of pa[i][j] = -1
-void preprocess_lca()
-{
-	REP(i,MAXN){
-		REP(j,MAXLOGN){
-			pa[i][j] = -1;  
-		}
-	}
-	DFS();
-	REPc(j,1,MAXLOGN-1){
-		REP1(i,n){
-			if(pa[i][j-1] != -1)
-				pa[i][j] = pa[pa[i][j-1]][j-1];
-		}
-	}
+void preprocess_lca() {
+	std::fill(&pa[0][0], &pa[0][0] + MAXN*MAXLOGN, -1);
+	lca_dfs();
+	for(int j = 1; j < MAXLOGN; j++)
+		for(int i = 1; i <= n; i++)
+			if(pa[i][j-1] != -1) pa[i][j] = pa[pa[i][j-1]][j-1];
 }
-
-int LCA(int u, int v)
-{
-	if(depth[u] < depth[v])
-		SWAP(u,v);
+int LCA(int u, int v) {
+	if(depth[u] < depth[v]) swap(u,v);
 	int diff = depth[u]-depth[v];
-	REP(i,MAXLOGN){
-		if( (diff>>i)&1 )
-			u = pa[u][i];
-	}
-	if(u == v)
-		return u;
-	for(int i = MAXLOGN-1; i > -1; i--)
-		if(pa[u][i] != pa[v][i])
-			u = pa[u][i], v= pa[v][i];
+	for(int i = 0; i < MAXLOGN; i++) if((diff>>i)&1) u = pa[u][i];
+	if(u == v) return u;
+	for(int i = MAXLOGN-1; i > -1; i--) if(pa[u][i] != pa[v][i])
+		u = pa[u][i], v= pa[v][i];
 	return pa[u][0];
 }
+int distance(int u, int v) {
+	int l = LCA(u, v);
+	return (depth[u] - depth[l]) + (depth[v] - depth[l]);
+}
+/* LCA END */

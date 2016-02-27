@@ -1,15 +1,15 @@
-LL L[2*MAXN] = {0};
-
-void manachar(string input)
-{
-	n = int(input.size());
-	LL N = 2*n+1;
+// even positions are spaces (even length palindromes)
+// odd ones, i are (i-1)/2 th in string
+int L[2*MAXN];
+void manachar(string input) {
+	int size = int(input.size());
+	int N = 2*size+1;
 	// initialise L array
-	REPc(i,0,N)	L[i] = 0;
+	std::fill(&L[0], &L[0] + N, 0);
 	// Start
 	L[0] = 0, L[1] = 1;
-	LL C = 1, R = 2, i = 0, iMirror, maxLPSCenterPosition = 0, start = -1, end = -1, diff = -1;
-	REPc(i,2,N-1){
+	int C = 1, R = 2, i = 0, iMirror, maxLPSCenterPosition = 0, start = -1, end = -1, diff = -1;
+	for(int i = 2; i < N; i++) {
 		iMirror = 2*C-i;
 		L[i] = 0;
 		diff = R-i;

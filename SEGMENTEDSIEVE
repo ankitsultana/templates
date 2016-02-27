@@ -3,11 +3,11 @@
 
 bool is_prime[MAXN] = {false};
 bool flag[MAXINTERVAL] = {false};
-vll primes;
+vector<LL> primes;
 /* Compute all the primes before hand */
 void sieve_eratosthenes()
 {
-	REP(i,MAXN)	is_prime[i] = true;
+	std::fill(&is_prime[0], &is_prime[0] + MAXN, true);
 	is_prime[1] = false;
 	for(int i = 2; i*i <= MAXN; i++){
 		if(is_prime[i]){
@@ -16,7 +16,7 @@ void sieve_eratosthenes()
 			}
 		}
 	}
-	REPc(i,2,MAXN-1){
+	for(int i = 2; i < MAXN; i++) {
 		if(is_prime[i])
 			primes.PB((LL)i);
 	}
@@ -25,11 +25,11 @@ void sieve_eratosthenes()
 /* Returns the prime-count within range [a,b] and marks them in flag[] */
 int segmented_sieve(int a, int b)
 {
-	if(a > b)	SWAP(a,b);
+	if(a > b)	swap(a,b);
 	assert(b - a < MAXINTERVAL);
-	REP(i,MAXINTERVAL)	flag[i] = false;
+	std::fill(&flag[0], &flag[0] + MAXINTERVAL, false);
 	int res = 0;
-	REP(i,SZ(primes)) {
+	for(int i = 0; i < primes.size(); i++) {
 		if(primes[i] > b)	break;
 		int index = a/primes[i];
 		for(LL j = index; ; j++) {
@@ -41,7 +41,7 @@ int segmented_sieve(int a, int b)
 			}
 		}
 	}
-	REPc(i,0,b-a) {
+	for(int i = 0; i <= b-a; i++) {
 		if(i + a < MAXN) {
 			if(is_prime[i+a]) {
 				res++;  
