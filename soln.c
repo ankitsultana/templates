@@ -9,7 +9,7 @@
 typedef struct node node;
 typedef struct heap heap;
 
-// Utilities that C doesn't fucking provide
+// Utilities that C doesn't provide
 int min(int i, int j) { return i < j ? i : j; }
 void swap(node **x, node **y) { node* temp = *x; *x = *y; *y = temp; }
 // Awesome heap
@@ -128,24 +128,15 @@ int main() {
 	heap *my_heap = (heap*)malloc(sizeof(heap));;
 	my_heap->pool = 0;
 	node *temp_node[MAXN];
-	for(iter = 0; iter < MAXN; iter++)
-		temp_node[iter] = (node*)malloc(sizeof(node));
 	for(iter = 'A'; iter <= 'Z'; iter++) {
 		if(freq[iter] > 0) {
-			temp_node[iter]->key = freq[iter];
-			temp_node[iter]->left = NULL;
-			temp_node[iter]->right = NULL, temp_node[iter]->parent = NULL;
-			temp_node[iter]->c = iter;
+			temp_node[iter] = create_node(freq[iter], iter);
 			min_insert(my_heap, temp_node[iter]);
 		}
 	}
-	/* for(iter = 1; iter <= my_heap->size; iter++) {
-		printf("%c %d\n", my_heap->arr[iter]->c, my_heap->arr[iter]->key);
-	} */
 	int answer = my_heap->size;
 	while(my_heap->size > 1) {
-		node *one = extract_min(my_heap);
-		node *two = extract_min(my_heap);
+		node *one = extract_min(my_heap), *two = extract_min(my_heap);
 		assert(one != two);
 		node *more = create_node(one->key + two->key, '0');
 		more->left = one, more->right = two;
