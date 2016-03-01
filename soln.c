@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <assert.h>
-#define MAXN 1002
+#define MAXN 10003
 #define LEFT(i) (i*2)
 #define RIGHT(i) (i*2+1)
 typedef struct node node;
@@ -30,7 +30,7 @@ struct heap {
 };
 void printer(heap *x) {
 	int iter = 0;
-	for(iter = 1; iter <= x->size; iter++)	printf("%d ", x->arr[iter]->key);
+	for(iter = 1; iter <= x->size; iter++)	printf("%c%d %d | ", x->arr[iter]->c, x->arr[iter]->key, x->arr[iter]->order);
 	printf("\n");
 }
 bool compare(heap *x, int i, int j) {
@@ -40,11 +40,12 @@ bool compare(heap *x, int i, int j) {
 void min_heapify(heap *x, int i) {		// min_heapify the given heap
 	int iter = i, temp_idx;
 	while(iter <= x->size/2) {
-		if(RIGHT(iter) > x->size && compare(x, LEFT(iter), i)) {
+		if(RIGHT(iter) > x->size && compare(x, LEFT(iter), iter)) {
 			temp_idx = LEFT(iter);
-		} else if(RIGHT(iter) <= x->size && compare(x, compare(x, LEFT(iter), RIGHT(iter))? LEFT(iter): RIGHT(iter), iter)) {
-			temp_idx = compare(x, RIGHT(iter), LEFT(iter))?
-				RIGHT(iter): LEFT(iter);
+		} else if(RIGHT(iter) <= x->size && 
+				compare(x, compare(x, LEFT(iter), RIGHT(iter)) ?LEFT(iter): RIGHT(iter), iter)) {
+			temp_idx = compare(x, LEFT(iter), RIGHT(iter)) ?
+					LEFT(iter): RIGHT(iter);
 		} else {
 			break;
 		}
@@ -119,6 +120,7 @@ void huffman(node* root, char tillnow[], int d) {
 		huffman(root->right, tillnow, d+1);
 }
 
+bool vis[1000] = {false};
 int main() {
 	scanf("%s", input+1);
 	int size = strlen(input+1), iter;
@@ -128,12 +130,15 @@ int main() {
 	heap *my_heap = (heap*)malloc(sizeof(heap));;
 	my_heap->pool = 0;
 	node *temp_node[MAXN];
-	for(iter = 'A'; iter <= 'Z'; iter++) {
-		if(freq[iter] > 0) {
-			temp_node[iter] = create_node(freq[iter], iter);
-			min_insert(my_heap, temp_node[iter]);
+	for(iter = 1; iter <= size; iter++) {
+		int c = input[iter];
+		if(freq[c] > 0 && !vis[c]) {
+			vis[c] = true;
+			temp_node[c] = create_node(freq[c], c);
+			min_insert(my_heap, temp_node[c]);
 		}
 	}
+	assert(size > 1);
 	int answer = my_heap->size;
 	while(my_heap->size > 1) {
 		node *one = extract_min(my_heap), *two = extract_min(my_heap);
@@ -154,6 +159,5 @@ int main() {
 	huffman(HEAD, tillnow, 0);
 	for(iter = 1; iter <= size; iter++)
 		printf("%s", out_mapper[input[iter]]);
-	printf("\n");
 	return 0;
 }
