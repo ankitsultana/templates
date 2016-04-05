@@ -10,7 +10,7 @@ typedef struct bst bst;
 
 struct node {
     char word[MAXW];
-    int left_ht, right_ht, factor;
+    int left_ht, right_ht, factor, ht;
     node *left, *right, *parent;
 };
 void word_copy(char lhs[], char rhs[]) {
@@ -19,6 +19,7 @@ void word_copy(char lhs[], char rhs[]) {
         lhs[iter] = rhs[iter];
         iter++;
     }
+	lhs[iter] = '\0';
 }
 void node_copy(node *lhs, node *rhs) {
     word_copy(lhs->word, rhs->word);
@@ -34,7 +35,8 @@ struct bst {
 node* get_new_node() {
     node* new_node = (node*) malloc(sizeof(node));
     new_node->left = new_node->right = new_node->parent = NULL;
-    new_node->left_ht = new_node->right_ht = new_node->factor = 0;
+    new_node->factor = 0;
+    new_node->left_ht = new_node->right_ht = 1;
     return new_node;
 }
 
@@ -51,20 +53,16 @@ node* bst_insert(bst* root, char word[MAXW]) {
     word_copy(x.word, word);
     node** temp = &(root->HEAD), *par = NULL;
     while(*temp != NULL) {
-        if(strcmp(x.word, (*temp)->word) <= 0) {
-            (*temp)->left_ht++;
-            (*temp)->factor++;
+        if(strcmp(x.word, (*temp)->word) < 0) {
             par = *temp;
-            temp = &(*temp)->left;
-        } else {
-            (*temp)->right_ht++;
-            (*temp)->factor--;
-            par = *temp;
-            temp = &(*temp)->right;
-        }
-        if((*temp) != NULL) {
             if((*temp)->factor > 1 || (*temp)->factor < -1)
                 res = (*temp);
+            temp = &(*temp)->left;
+        } else {
+            par = *temp;
+            if((*temp)->factor > 1 || (*temp)->factor < -1)
+                res = (*temp);
+            temp = &(*temp)->right;
         }
     }
     *temp = get_new_node();
@@ -72,47 +70,21 @@ node* bst_insert(bst* root, char word[MAXW]) {
     node_copy(*temp, &x);
     return res;
 }
-
-// Transplant node at two to one's position
-// one has to be non NULL
-void bst_transplant(bst *root, node *one, node *two) {
-    if(one->parent == NULL) {
-        root->HEAD = two;
-        if(root->HEAD != NULL)
-            root->HEAD->parent = NULL;
-    } else {
-        if(one == one->parent->left) {
-            one->parent->left = two;
-        } else {
-            one->parent->right = two;
-        }
-        if(two != NULL) {
-            two->parent = one->parent;
-        }
-    }
-}
-
-// Delete highest key node
-void bst_delete(bst *root) {
-    node* temp = root->HEAD;
-    if(temp == NULL)    return ;
-    while(temp->right != NULL) {
-        temp = temp->right;
-    }
-    bst_transplant(root, temp, temp->left);
-}
-node* get_highest_node(bst *root) {
-    node* temp = root->HEAD;
-    if(temp == NULL)    return temp;
-    while(temp->right != NULL)  temp = temp->right;
-    return temp;
+int max(int a, int b) {
+	return a > b ? a : b;
 }
 
 void print_bst(node *temp) {
     if(temp == NULL)    return ;
-    printf("%s\n", temp->word);
     print_bst(temp->left);
+    printf("%s %d %d\n", temp->word, max(temp->left_ht, temp->right_ht), temp->factor);
     print_bst(temp->right);
+}
+void preorder(node *temp) {
+	if(temp == NULL)	return ;
+	printf("%s %d %d\n", temp->word, max(temp->left_ht, temp->right_ht), temp->factor);
+	preorder(temp->left);
+	preorder(temp->right);
 }
 
 void left_rotate(bst *my_bst, node *x) {
@@ -152,42 +124,41 @@ void right_rotate(bst *my_bst, node *y) {
 }
 
 char input[MAXN][MAXW];
-
 void balance(bst* my_bst, node *root) {
-    if(root->factor == -2 && root->left->factor == -1) {
+    printf("BALANCE\n");
+    if(root->factor == 2 && root->left != NULL && root->left->factor == 1) {
         right_rotate(my_bst, root);
-    } else if(root->factor == -2 && root->left->factor == 1) {
+    } else if(root->factor == 2 && root->left != NULL && root->left->factor == -1) {
         left_rotate(my_bst, root->left);
         right_rotate(my_bst, root);
-        if(root->parent->left != NULL) {
-        }
-    } else if(root->factor == 2 && root->right->factor == -1) {
+    } else if(root->factor == -2 && root->right != NULL && root->right->factor == 1) {
         right_rotate(my_bst, root->right);
         left_rotate(my_bst, root);
-    } else if(root->factor == 2 && root->right->factor == 1) {
+    } else if(root->factor == -2 && root->right != NULL && root->right->factor == -1) {
         left_rotate(my_bst, root);
     } else {
         return ;
     }
-    if(root->parent != NULL) {
-        root->parent->factor = 1;
-        root->parent->left_ht = root->parent->right_ht = 1;
-    }
-    root->factor = 0;
-    root->left_ht = root->right_ht = 0;
 }
 
 int main() {
+    // freopen("input.in", "r", stdin);
     bst* my_bst = create_bst();
-    my_bst->HEAD = get_new_node();
+    my_bst->HEAD = NULL;
     int cnt = 0;
     node* temp;
     while(scanf("%s", input[cnt++]) != EOF) {
         temp = bst_insert(my_bst, input[cnt-1]);
+	printf("==================\n");
+	preorder(my_bst->HEAD);
+	printf("------------------\n");
         if(temp != NULL) {
-            // avl_the_shit
+		balance(my_bst, temp);
         }
+	preorder(my_bst->HEAD);
+	printf("==================\n");
     }
-    print_bst(my_bst->HEAD);
+    /* print_bst(my_bst->HEAD);
+    preorder(my_bst->HEAD); */
     return 0;
 }
