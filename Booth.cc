@@ -1,9 +1,9 @@
 int booth(string s)
 {
 	s += s;
-	vi f(s.size(), -1);
+	vector<int> f(s.size(), -1);
 	int k = 0, size = int(s.size()), i;
-	REPc(j,1,size-1) {
+    for(int j = 1; j < size; j++) {
 		i = f[j-k-1];
 		while(i != -1 && s[j] != s[k+i+1]) {
 			if(s[j] < s[k+i+1]) {

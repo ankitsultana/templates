@@ -1,27 +1,25 @@
-/* Bellman Ford: 
+/* Bellman Ford:
  * 		Complexity: O(V*E)
  * * * * * * * * * * * * * */
 int n, m, dp[MAXN];
-vi adj[MAXN], wt[MAXN];
-void initialize()
-{
-	REP1(i,n) {
-		adj[i].clear();  
+vector<int> adj[MAXN], wt[MAXN];
+void initialize() {
+    for(int i = 1; i <= n; i++) {
+		adj[i].clear();
 		wt[i].clear();
-		dp[i] = iNF;
+		dp[i] = INF;
 	}
 }
-void bellman_ford(int v, int start_vertex = -1)
-{
+void bellman_ford(int v, int start_vertex = -1) {
 	dp[v] = 0;
-	vi p(n+1, -1);
+	vector<int> p(n+1, -1);
 	int x;
-	REP(i,n) {
+    for(int i = 0; i < n; i++) {
 		x = -1;
-		REP1(k,n) {
-			REP(j,SZ(adj[k])) {
+        for(int k = 1; k <= n; k++) {
+            for(int j = 0; j < adj[k].size(); j++) {
 				int other = adj[k][j];
-				if(dp[k] < iNF) {
+				if(dp[k] < INF) {
 					if(dp[other] > dp[k] + wt[k][j]) {
 						dp[other] = dp[k] + wt[k][j];
 						p[other] = k;
@@ -33,35 +31,35 @@ void bellman_ford(int v, int start_vertex = -1)
 	}
 	/* Check Negative Cycle */
 	if(x != -1) {
-		cout<<"Negative Cycle Found\n";  
+		cout << "Negative Cycle Found\n";
 		/* Print Negative Cycle */
-		/* * * * * * * * * * * * * * * * * * * * * 
+		/* * * * * * * * * * * * * * * * * * * * *
 		int y = x;
-		REP(i,n) {
-			y = p[y];  
+        for(int i = 0; i < n; i++) {
+			y = p[y];
 		}
-		vi path;
+		vector<int> path;
 		for(int cur = y; ;cur = p[cur]) {
-			path.PB(cur);  
+			path.PB(cur);
 			if(cur == y && path.size() > 1)	break;
 		}
 		reverse(path.begin(), path.end());
-		REP(i,SZ(path)) {
-			cout<<path[i]<<' ';  
+        for(int i = 0; i < path.size(); i++) {
+			cout << path[i] << ' ';
 		}
 		* * * * * * * * * * * * * * * * * * * * */
 		return ;
 	}
 	/* Print Path */
-	/* * * * * * * * * * * * * * * * * * * * * 
+	/* * * * * * * * * * * * * * * * * * * * *
 	assert(start_vertex != -1);
-	vi path;
+	vector<int> path;
 	for(int cur = start_vertex; cur != -1; cur = p[cur]) {
 		path.PB(cur);
 	}
 	reverse(path.begin(), path.end());
-	REP(i,SZ(path)) {
-		cout<<path[i]<<' ';  
+    for(int i = 0; i < path.size(); i++) {
+		cout<<path[i]<<' ';
 	}
 	* * * * * * * * * * * * * * * * * * * * */
 }

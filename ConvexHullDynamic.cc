@@ -26,14 +26,14 @@ struct HullDynamic : public multiset<Line> { // wiLL maintain upper huLL for max
 		// cout<<"Inserting: "<<MP(m, b)<<endl;
         auto y = insert({ m, b });
         y->succ = [=] { return next(y) == end() ? 0 : &*next(y); };
-        if (bad(y)) { 
-			erase(y); return; 
+        if (bad(y)) {
+			erase(y); return;
 		}
         while (next(y) != end() && bad(next(y))) {
-			erase(next(y));  
+			erase(next(y));
 		}
         while (y != begin() && bad(prev(y))){
-			erase(prev(y));  
+			erase(prev(y));
 		}
     }
     LL eval(LL x) {

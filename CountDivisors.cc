@@ -1,10 +1,9 @@
 #define MAXN 1000003
 
 bool is_prime[MAXN] = {false};
-vll primes;
-void sieve_eratosthenes()
-{
-	REP(i,MAXN)	is_prime[i] = true;
+vector<LL> primes;
+void sieve_eratosthenes() {
+	for(int i = 0; i < MAXN; i++)	is_prime[i] = true;
 	is_prime[1] = false;
 	for(int i = 2; i*i <= MAXN; i++){
 		if(is_prime[i]){
@@ -13,10 +12,9 @@ void sieve_eratosthenes()
 			}
 		}
 	}
-	REPc(i,2,MAXN-1){
+	for(int i = 2; i < MAXN; i++)
 		if(is_prime[i])
-			primes.PB(i);  
-	}
+			primes.push_back(i);
 }
 
 /* Miller Rabbin,

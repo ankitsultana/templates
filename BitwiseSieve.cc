@@ -1,4 +1,4 @@
-#define MAXN 99999953ull 
+#define MAXN 99999953ull  // last prime
 #define sq(x) ((x)*(x))
 #define mset(x,v) memset(x,v,sizeof(x))
 #define chkC(x,n) (x[n>>6]&(1<<((n>>1)&31)))
