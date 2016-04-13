@@ -11,7 +11,7 @@ public:
 	void reset() {
 		REP(i,SZ(tree)) {
 			REP(j,SZ(tree[i])) {
-				tree[i][j] = 0;  
+				tree[i][j] = 0;
 			}
 		}
 	}
@@ -19,15 +19,15 @@ public:
 	void reset(int m1, int m2) {
 		REP(i,m1) {
 			REP(j,m2) {
-				tree[i][j] = 0;  
+				tree[i][j] = 0;
 			}
 		}
 	}
 	T query_y(int x, int y) {
-		if(x < 0 || y < 0)	return 0;  
+		if(x < 0 || y < 0)	return 0;
 		T res = 0;
 		while(y >= 0) {
-			res = res + tree[x][y];  
+			res = res + tree[x][y];
 			if(res >= mod)
 				res -= mod;
 			y = (y & (y+1)) - 1;
@@ -49,7 +49,7 @@ public:
 	}
 
 	T full_query(int x1, int y1, int x2, int y2) {
-		LL res = query(x2, y2);  
+		LL res = query(x2, y2);
 		res -= query(x2, y1-1);
 		res -= query(x1-1, y2);
 		res += query(x1-1, y1-1);
@@ -71,7 +71,7 @@ public:
 			y |= y+1;
 		} */
 		while(y <= max_y) {
-			tree[x][y] += val;  
+			tree[x][y] += val;
 			y |= y+1;
 		}
 	}
