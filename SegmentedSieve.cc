@@ -37,14 +37,14 @@ int segmented_sieve(int a, int b)
 				flag[primes[i]*j - a] = true;
 			}
 			else if(primes[i]*j > b) {
-				break;  
+				break;
 			}
 		}
 	}
 	for(int i = 0; i <= b-a; i++) {
 		if(i + a < MAXN) {
 			if(is_prime[i+a]) {
-				res++;  
+				res++;
 			}
 		}
 		else if(!flag[i]) {

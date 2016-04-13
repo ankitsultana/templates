@@ -15,7 +15,7 @@ void Hungarian() {
 		do {
 			used[j_cur] = true;
 			int j_next, delta = INF, i_cur = par[j_cur];
-			for (int j = 0; j <= n; j++) 
+			for (int j = 0; j <= n; j++)
 				if (!used[j]) {
 					int cur = adj_m[i_cur][j] - u[i_cur] - v[j];
 					if (cur < minval[j]) {
@@ -25,7 +25,7 @@ void Hungarian() {
 						delta = minval[j]; j_next = j;
 					}
 				}
-			for (int j = 0; j <= n; j++) 
+			for (int j = 0; j <= n; j++)
 				if (used[j]) {
 					u[par[j]] += delta; v[j] -= delta;
 				}

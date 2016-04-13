@@ -1,7 +1,7 @@
 int subsize[MAXN] = {0}, depth[MAXN] = {0};
 void DFS(int node = 1, int prev = -1, int d = 0)
 {
-	
+
 	subsize[node] = 1, depth[node] = d, pa[node][0] = prev;
 	int size = (int)adj[node].size();
 	REP(i,size){
@@ -19,7 +19,7 @@ void HLD(int node = 1, int prev = -1, int cost = 0)
 	if(chain_head[chain_no] == -1)
 		chain_head[chain_no] = node;
 	pos_in_base[node] = ptr;
-	chain_ind[node] = chain_no;	
+	chain_ind[node] = chain_no;
 	base_array[ptr++] = cost;
 	int ind = -1, maxim = -1, size = (int)adj[node].size();
 	REP(i,size){

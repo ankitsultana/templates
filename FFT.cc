@@ -3,7 +3,7 @@
 long double PI = 2.0*atan2l(1,0);
 
 typedef complex<double> base;
-void fft(vector<base> & a, bool invert) 
+void fft(vector<base> & a, bool invert)
 {
 	int n = (int)a.size();
 
@@ -32,8 +32,8 @@ void fft(vector<base> & a, bool invert)
 		for(int i=0; i<n; ++i)
 			a[i] /= n;
 }
- 
-void multiply(const vector<int> & a, const vector<int> & b, vector<int> & res) 
+
+void multiply(const vector<int> & a, const vector<int> & b, vector<int> & res)
 {
 	vector<base> fa(a.begin(), a.end()), fb(b.begin(), b.end());
 	size_t n = 1;

@@ -5,10 +5,10 @@ private:
 	int n;
 public:
 	BIT(int n): n(n) {
-		bit.resize(n+1);  
+		bit.resize(n+1);
 	}
 	void reset() {
-		for(int i = 0; i <= n; i++)	bit[i] = 0;  
+		for(int i = 0; i <= n; i++)	bit[i] = 0;
 	}
 	void update(int u, T v) {
 		while(u <= n) {

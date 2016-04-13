@@ -3,9 +3,8 @@
 int lcp[MAXN], cnt[256], cls[2][MAXN], sa[2][MAXN], st[MAXN], rnk[MAXN], n;
 int suffix_idx[MAXN], suffix_size[MAXN];
 
-void initialize()
-{
-	REP(i,2) REP(j,MAXN) cls[i][j] = 0, sa[i][j] = 0, st[j] = 0, rnk[j] = 0;
+void initialize() {
+    for(int i = 0; i < 2; i++) for(int j = 0; j < MAXN; j++) cls[i][j] = 0, sa[i][j] = 0, st[j] = 0, rnk[j] = 0;
 }
 
 void suffix_array(const string &s) {
@@ -21,7 +20,7 @@ void suffix_array(const string &s) {
 		int clen = (1 << i);
 		for (j = 0; j < n; j++) {
 			if (j > 0 && sa[cur][j - 1] + clen < n && cls[cur][sa[cur][j]] == cls[cur][sa[cur][j - 1]] &&
-					cls[cur][sa[cur][j] + clen / 2] == cls[cur][sa[cur][j - 1] + clen / 2]
+                cls[cur][sa[cur][j] + clen / 2] == cls[cur][sa[cur][j - 1] + clen / 2]
 			   )
 				cls[1 - cur][sa[cur][j]] = cls[1 - cur][sa[cur][j - 1]];
 			else cls[1 - cur][sa[cur][j]] = j;
@@ -41,11 +40,11 @@ void suffix_array(const string &s) {
 			lcp[rnk[i] + 1] = x; if (x > 0) x--;
 		}
 	}
-	REP(i,n) {
+    for(int i = 0; i < n; i++) {
 		suffix_idx[i] = sa[1][i];
 		suffix_size[i] = n - sa[1][i];
 	}
-	REP(i,n) {
+    for(int i = 0; i < n; i++) {
 		pos[suffix_idx[i]] = i;
 	}
 }

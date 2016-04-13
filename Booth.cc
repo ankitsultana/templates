@@ -7,18 +7,18 @@ int booth(string s)
 		i = f[j-k-1];
 		while(i != -1 && s[j] != s[k+i+1]) {
 			if(s[j] < s[k+i+1]) {
-				k = j-i-1;  
+				k = j-i-1;
 			}
 			i = f[i];
 		}
 		if(i == -1 && s[j] != s[k+i+1]) {
 			if(s[j] < s[k+i+1]) {
-				k = j;  
+				k = j;
 			}
 			f[j-k] = -1;
 		}
 		else {
-			f[j-k] = i+1;  
+			f[j-k] = i+1;
 		}
 	}
 	return k;
@@ -31,7 +31,7 @@ string get_minimal(string s)
 	int iter = 0;
 	while(iter < n) {
 		temp[iter] = s[(iter + rot)%n];
-		iter++;  
+		iter++;
 	}
 	return temp;
 }

@@ -11,7 +11,7 @@
 		q.pop();
 		for(vi::iterator it = adj[f].begin(); it != adj[f].end(); it++){
 			edge_count++;
-			indegree[*it]--;  
+			indegree[*it]--;
 			if(indegree[*it] == 0)
 				q.push(*it);
 		}
@@ -19,5 +19,5 @@
 	}
 
 	if(edge_count != E){
-		cout<<"Impossible\n";  
+		cout<<"Impossible\n";
 	}

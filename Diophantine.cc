@@ -1,4 +1,4 @@
-/* Return a integer solution (x, y) to 
+/* Return a integer solution (x, y) to
  * 		a*x + b*y = gcd(a, b)
  * * * * * * * * * * * * * * * * */
 template<typename T>
@@ -14,7 +14,7 @@ T extendedeuclid (T a, T b, T & x, T & y) {
 	return d;
 }
 
-/* Return a integer solution (x, y) to 
+/* Return a integer solution (x, y) to
  * 		a*x + b*y = c
  * Assumes that there exists a solution
  * * * * * * * * * * * * * * * * */
@@ -28,6 +28,6 @@ pair<T, T> diophantine(T a, T b, T c)
 	assert(c % g == 0);
 	a /= g, b /= g, c /= g;
 	extendedeuclid(a, b, x, y);
-	if(neg_a) x = -x;if(neg_b) y = -y;  
+	if(neg_a) x = -x;if(neg_b) y = -y;
 	return MP(x*c, y*c);
 }

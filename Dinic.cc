@@ -7,16 +7,9 @@ class Dinic{
 		int n, s, t, d[MAXN], ptr[MAXN], q[MAXN];
 		vector<edge> e;
 		vector<int> g[MAXN];
-	 
 	public:
 		//takes in number of nodes source and sink
 		Dinic(int a, int b, int c): n(a), s(b), t(c) {	}
-
-		void create_adj_list()
-		{
-			// Create adjacency list here
-		}
-
 		void add_edge (int a, int b, int cap) {
 			edge e1 = { a, b, cap, 0 };
 			edge e2 = { b, a, 0, 0 };
@@ -25,7 +18,6 @@ class Dinic{
 			g[b].push_back ((int) e.size());
 			e.push_back (e2);
 		}
-		 
 		bool bfs() {
 			int qh=0, qt=0;
 			q[qt++] = s;
@@ -44,7 +36,6 @@ class Dinic{
 			}
 			return d[t] != -1;
 		}
-		 
 		int dfs (int v, int flow) {
 			if (!flow)  return 0;
 			if (v == t)  return flow;
@@ -61,7 +52,6 @@ class Dinic{
 			}
 			return 0;
 		}
-		 
 		int dinic() {
 			int flow = 0;
 			for (;;) {

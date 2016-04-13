@@ -34,7 +34,7 @@ template<typename T> T modinv(T a) { return expo(a, mod-2, mod); }
 
 LL h[MAXN], c[MAXN], dp[MAXN] = {0};
 
-//	ASSUMPTIONS: 
+//	ASSUMPTIONS:
 //			c[i] < c[i+1]
 //			c[i] != c[i+1]
 
@@ -56,13 +56,13 @@ int main()
 
 	// For storing points
 	// stack[i] stores intersection points of line_no[i] & line_no[i+1]
-	double stack[MAXN];	
+	double stack[MAXN];
 	// Size of stack and count of lines
 	// in lower envelope
 	// line_cnt = pnt_cnt+1 always
 	int pnt_cnt = 0, line_cnt = 1;
 
-	// Kind of a mapping, maps line numbers by the 
+	// Kind of a mapping, maps line numbers by the
 	// appearance in the lower envelope
 	int line_no[MAXN] = {0};
 	line_no[0] = 1, line_no[1] = 2;
@@ -88,7 +88,7 @@ int main()
 		while(pnt_cnt > 0){
 			// find intersection of last two lines
 			x2 = stack[pnt_cnt-1];
-			// find intersection of second last line and 
+			// find intersection of second last line and
 			// line being currently added
 			x1 = get_x(line_no[line_cnt-2], i);
 			if(x1 > x2)	break;

@@ -14,7 +14,7 @@ void precomp_lowest_primes()
 	}
 	REP(i,MAXN){
 		if(lp[i] < 0){
-			lp[i] = i;  
+			lp[i] = i;
 		}
 	}
 }

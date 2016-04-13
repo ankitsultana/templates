@@ -7,7 +7,7 @@ struct point {
 			return x < other.x;
 		}
 		if(y != other.y) {
-			return y > other.y;  
+			return y > other.y;
 		}
 		return idx > other.idx;
 	}
@@ -36,14 +36,14 @@ bool inside(point x)
 				|
 				|
 */
-				
+
 void myInsert(point x)
 {
 	if(coastline.empty()) {
 		coastline.insert(x);return ;
 	}
 	if(inside(x)) {
-		return ;  
+		return ;
 	}
 	coastline.insert(x);
 	set<point>::iterator it = coastline.find(x), jt;

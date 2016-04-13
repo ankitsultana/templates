@@ -3,7 +3,7 @@
 #define mset(x,v) memset(x,v,sizeof(x))
 #define chkC(x,n) (x[n>>6]&(1<<((n>>1)&31)))
 #define setC(x,n) (x[n>>6]|=(1<<((n>>1)&31)))
-#define LEN 5761901 
+#define LEN 5761901
 unsigned LL base[MAXN/64], primes[LEN];
 void sieve() {
 	unsigned LL i, j, k;

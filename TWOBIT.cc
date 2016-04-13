@@ -7,7 +7,6 @@ public:
 	TwoBIT(int max_x, int max_y): max_x(max_x), max_y(max_y) {
 		tree = vector<vector<T> >(max_x, vector<T>(max_y));
 	}
-
 	void reset() {
 		REP(i,SZ(tree)) {
 			REP(j,SZ(tree[i])) {
@@ -15,7 +14,6 @@ public:
 			}
 		}
 	}
-
 	void reset(int m1, int m2) {
 		REP(i,m1) {
 			REP(j,m2) {
@@ -34,7 +32,6 @@ public:
 		}
 		return res;
 	}
-
 	T query(int x, int y) {
 		if(x < 0 || y < 0)	return 0;
 		T res = 0, temp;
@@ -47,7 +44,6 @@ public:
 		}
 		return res;
 	}
-
 	T full_query(int x1, int y1, int x2, int y2) {
 		LL res = query(x2, y2);
 		res -= query(x2, y1-1);
@@ -55,7 +51,6 @@ public:
 		res += query(x1-1, y1-1);
 		return res;
 	}
-
 	void update(int x, int y, T val) {
 		/* setter = Grid[x][y];
 		Grid[x][y] = val; */
@@ -64,7 +59,6 @@ public:
 			x |= x+1;
 		}
 	}
-
 	void update_y(int x, int y, T val) {
 		/* while(y <= max_y) {
 			tree[x][y] += val - setter;

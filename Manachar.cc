@@ -15,7 +15,7 @@ void manachar(string input) {
 		diff = R-i;
 		if(diff > 0)
 			L[i] = min(L[iMirror], diff);
-		while ( ((i + L[i]) < N && (i - L[i]) > 0) && 
+		while ( ((i + L[i]) < N && (i - L[i]) > 0) &&
             ( ((i + L[i] + 1) % 2 == 0) || (input[(i + L[i] + 1)/2] == input[(i - L[i] - 1)/2] ))) {
             L[i]++;
         }

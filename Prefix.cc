@@ -5,7 +5,7 @@ void prefix(const string &p) {
 	P[0] = 0;
     for(int i = 1; i < size; i++) {
 		while(k > 0 && p[k] != p[i]){
-			k = P[k-1];  
+			k = P[k-1];
 		}
 		if(p[k] == p[i]){
 			k++;
