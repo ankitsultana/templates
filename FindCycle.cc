@@ -1,5 +1,5 @@
 	queue<int> q;
-	REP1(i,n){
+    for(int i = 1; i <= n; i++) {
 		if(indegree[i] == 0)
 			q.push(i);
 	}
