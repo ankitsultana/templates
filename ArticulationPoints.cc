@@ -7,12 +7,12 @@ void FindArticulate(int node, int prev = -1) {
 	depth[node] = prev == -1?0: depth[prev]+1;
 	vis[node] = true;
 	high[node] = depth[node];
-	int sz = SZ(adj[node]), child;
+	int child;
 	int children = 0;
-    for(int i = 0; i < sz; i++) {
+    for(int i = 0; i < adj[node].size(); i++) {
 		child = adj[node][i];
 		if(child == prev)	continue;
-		if(vis[child]){
+		if(vis[child]) {
 			high[node] = min(high[node], depth[child]);
 		} else {
 			children++;

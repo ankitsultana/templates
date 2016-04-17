@@ -1,24 +1,23 @@
+void topsort() {
 	queue<int> q;
-	REP1(i,n){
+    for(int i = 1; i <= n; i++) {
 		if(indegree[i] == 0)
 			q.push(i);
 	}
-	vi result;
+	vector<int> result;
 	int edge_count = 0;
-	bool exists[30] = {false};
-	while(!q.empty()){
+	while(!q.empty()) {
 		int f = q.front();
 		q.pop();
-		for(vi::iterator it = adj[f].begin(); it != adj[f].end(); it++){
+		for(vector<int>::iterator it = adj[f].begin(); it != adj[f].end(); it++) {
 			edge_count++;
-			indegree[*it]--;  
+			indegree[*it]--;
 			if(indegree[*it] == 0)
 				q.push(*it);
 		}
-		result.PB(f);
+		result.push_back(f);
 	}
-
-	if(edge_count != E){
-		cout<<"Impossible\n";  
+	if(edge_count != E) {
+		cout<<"Impossible\n";
 	}
-	// result contains top sorted
+}
