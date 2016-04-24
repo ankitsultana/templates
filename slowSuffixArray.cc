@@ -1,3 +1,5 @@
+#include <iostream>
+using namespace std;
 #define MAXN 10003
 #define MAXLOGN 19
 /*  Build: O(n*log2(n)*log2(n))
@@ -5,7 +7,7 @@
  *  Case:  Lower
  * * * * * * * * * * * * */
 struct suffix_array {
-	int sa[MAXN][MAXLOGN], size;	// sa[i][log] is position of i-th suffix in lex order
+	int pos[MAXN][MAXLOGN], size;	// pos[i][log] is position of i-th suffix in lex order
 	int arr[MAXN], log;	// arr[i] is the suffix at position i
 	int sizess[MAXN];
 	bool lower_case;
@@ -16,31 +18,31 @@ struct suffix_array {
 		preprocess();
 	}
 	void preprocess() {
-		for(int i = 0; i < size; i++)	sa[i][0] = s[i] - (lower_case?'a': 'A');
+		for(int i = 0; i < size; i++)	pos[i][0] = s[i] - (lower_case?'a': 'A');
 		int cnt = 1;
 		log = 0;
 		for(int k = 1; (cnt >> 1) < size; k++, log++, cnt <<= 1) {
 			for(int i = 0; i < size; i++)
-				events[i] = {sa[i][k-1], i + cnt < size?sa[i+cnt][k-1]: -1, i};
+				events[i] = {pos[i][k-1], i + cnt < size?pos[i+cnt][k-1]: -1, i};
 			sort(events, events + size);
 			for(int i = 0; i < size; i++) {
 				if(i > 0 && events[i].a == events[i-1].a && events[i].b == events[i-1].b) {
-					sa[events[i].idx][k] = sa[events[i-1].idx][k];
+					pos[events[i].idx][k] = pos[events[i-1].idx][k];
 				} else {
-					sa[events[i].idx][k] = i;
+					pos[events[i].idx][k] = i;
 				}
 			}
 		}
 		for(int i = 0; i < size; i++) {
-			arr[sa[i][log]] = i;
-			sizess[sa[i][log]] = size - i;
+			arr[pos[i][log]] = i;
+			sizess[pos[i][log]] = size - i;
 		}
 	}
 	int lcp(int x, int y) {		// of [x..n) and [y..n)
 		if(x > y)	swap(x, y);
 		int res = 0;
 		for(int i = log; i > -1; i--) {
-			if(sa[x][i] == sa[y][i]) {
+			if(pos[x][i] == pos[y][i]) {
 				res += min(1<<i, min(size - y, size - x));
 				x += 1<<i, y += 1<<i;
 				if(x >= size || y >= size)	break;

@@ -86,8 +86,6 @@ struct treap {
         if(!root) return 0;
         else if(root->val < x) {
             return (root->l?root->l->size: 0) + 1 + less_than(root->r, x);
-        } else if(root->val == x) {
-            return (root->l?root->l->size: 0);
         } else {
             return less_than(root->l, x);
         }

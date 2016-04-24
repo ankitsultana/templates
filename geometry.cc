@@ -2,29 +2,39 @@
  * Geometry Crap
  */
 template<typename T>
-struct pt {
+struct point {
     T x, y;
-    friend std::ostream& operator<<(std::ostream &os, const pt &x) {
+    friend std::ostream& operator<<(std::ostream &os, const point &x) {
         os << "(" << x.x << ", " << x.y << ")";
         return os;
     }
 };
 
+template<typename T>
+T cross(point<T> o, point<T> a, point<T> b) {
+    return (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
+}
+
+template<typename T>
+double dist(point<T> a, point<T> b) {
+    return sqrt( (a.x-b.x)*(a.x-b.x) + (a.y-b.y)*(a.y-b.y) );
+}
+
 // area of triangle formed by three points (a, b, c)
 template<typename T>
-T area_of_triangle(pt<T> a, pt<T> b, pt<T> c) {
+T area_of_triangle(point<T> a, point<T> b, point<T> c) {
     return (a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y)) / 2;
 }
 
 // check if (a, b, c) are collinear
 template<typename T>
-bool collinear(pt<T> a, pt<T> b, pt<T> c) {
+bool collinear(point<T> a, point<T> b, point<T> c) {
     return (a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y)) == 0;
 }
 
 // check if x lies on the line segment a -- b
 template<typename T>
-bool on_segment(pt<T> a, pt<T> b, pt<T> x) {
+bool on_segment(point<T> a, point<T> b, point<T> x) {
     if(x.x <= max(a.x, b.x) and x.x >= min(a.x, b.x) and
             x.y <= max(a.y, b.y) and x.y >= min(a.y, b.y)) {
         return collinear(a, b, x);
@@ -36,7 +46,7 @@ bool on_segment(pt<T> a, pt<T> b, pt<T> x) {
 // 1  -> counter clockwise
 // -1 -> clockwise
 template<typename T>
-int orientation(pt<T> p, pt<T> q, pt<T> r) {
+int orientation(point<T> p, point<T> q, point<T> r) {
     int val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
     if(val == 0)    return 0;
     return val > 0 ? -1: 1;
@@ -44,7 +54,7 @@ int orientation(pt<T> p, pt<T> q, pt<T> r) {
 
 // check if p1q1 and p2q2 intersect
 template<typename T>
-bool segments_intersect(pt<T> p1, pt<T> q1, pt<T> p2, pt<T> q2) {
+bool segments_intersect(point<T> p1, point<T> q1, point<T> p2, point<T> q2) {
     int o1 = orientation(p1, q1, p2);
     int o2 = orientation(p1, q1, q2);
     int o3 = orientation(p2, q2, p1);
@@ -64,7 +74,7 @@ bool segments_intersect(pt<T> p1, pt<T> q1, pt<T> p2, pt<T> q2) {
 
 // return true if x lies inside polygon
 template<typename T>
-bool pip(pt<T> x, pt<T> polygon[], int n) {
+bool pip(point<T> x, point<T> polygon[], int n) {
     if(n < 3)   return false;
     bool c = false;
     for(int i = 0, j = n-1; i < n; j = i++) {
