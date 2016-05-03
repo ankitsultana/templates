@@ -10,7 +10,7 @@ void initialize() {
 void suffix_array(const string &s) {
 	initialize();
 	int i, j;
-	fill(cnt, 0, sizeof(cnt));
+	fill(cnt, cnt + sizeof(cnt), 0);
 	int n = s.size();
 	for (i = 0; i < n; i++) { cnt[s[i]] ++; cls[0][i] = s[i];}
 	for (i = 1; i <= 255; i++) cnt[i] += cnt[i - 1];

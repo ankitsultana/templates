@@ -1,4 +1,5 @@
 /* LCA BEGIN */
+#define MAXN 10003
 #define MAXLOGN 19
 int pa[MAXN][MAXLOGN];
 int depth[MAXN] = {0};
@@ -31,5 +32,14 @@ int LCA(int u, int v) {
 int distance(int u, int v) {
 	int l = LCA(u, v);
 	return (depth[u] - depth[l]) + (depth[v] - depth[l]);
+}
+int kth(int u, int k) {
+    if(k > depth[u])    return -1;
+    for(int i = MAXLOGN-1; i >= 0; i--) {
+        if((1<<i) & k) {
+            u = pa[u][i];
+        }
+    }
+    return u;
 }
 /* LCA END */
