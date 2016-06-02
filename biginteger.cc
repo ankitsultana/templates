@@ -96,8 +96,8 @@ struct bigint {
     bigint operator-(bigint &&other) {
         return (*this) - other;
     }
-    bigint operator--() {
-        return (*this) - bigint("1");
+    bigint& operator--() {
+        return *this = (*this) - bigint("1");
     }
     bigint operator++() {
         return (*this) + bigint("1");
@@ -105,8 +105,29 @@ struct bigint {
     string to_binary() {
         return __to_binary(this->data);
     }
-    string __to_binary(string data) {
-        return "0";
+    string divide_by_2(const string &temp) {
+        int iter = 0, curr = 0;
+        string res;
+        for(; iter < temp.size(); iter++) {
+            curr = (curr * 10) + temp[iter] - '0';
+            if(res.empty() && (curr/2) == 0) {
+            } else {
+                res.push_back((curr/2) + '0');
+            }
+            curr %= 2;
+        }
+        if(res.empty())
+            res = "0";
+        return res;
+    }
+    string __to_binary(const string &data) {
+        string res, temp = data;
+        while(temp.size() > 1 || temp[0] > '0') {
+            res.push_back('0' + ((temp.back() - '0') % 2));
+            temp = divide_by_2(temp);
+        }
+        __reverse(res);
+        return res;
     }
     void __reverse(string &temp) {
         int upper = temp.size() / 2;
