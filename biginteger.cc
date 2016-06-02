@@ -100,7 +100,7 @@ struct bigint {
         return *this = (*this) - bigint("1");
     }
     bigint operator++() {
-        return (*this) + bigint("1");
+        return *this = (*this) + bigint("1");
     }
     string to_binary() {
         return __to_binary(this->data);
