@@ -4,7 +4,7 @@
 int n;
 int adj_m[MAXN][MAXN], u[MAXN], v[MAXN], link[MAXN], par[MAXN], used[MAXN], minval[MAXN];
 void Hungarian() {
-	REP(i,MAXN)	par[i] = 0, u[i] = 0, v[i] = 0, used[i] = 0, minval[i] = 0;
+    for(int i = 0; i < MAXN; i++) par[i] = 0, u[i] = 0, v[i] = 0, used[i] = 0, minval[i] = 0; 
 	for (int i = 1; i <= n; i++) {
 		for (int j = 0; j < MAXN; j++) {
 			used[j] = false;

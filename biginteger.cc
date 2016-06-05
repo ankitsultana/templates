@@ -145,6 +145,9 @@ struct bigint {
     inline void __pop_zeros(string &temp) {
         while(temp.size() > 1 && temp.back() == '0')    temp.pop_back();
     }
+    bool is_even() {
+        return (this->data.back() - '0') % 2 == 0;
+    }
 };
 
 int main() {
