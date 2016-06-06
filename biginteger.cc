@@ -44,9 +44,7 @@ struct bigint {
         this->__reverse(this->data), other.__reverse(other.data);
         return bigint(temp);
     }
-    bigint operator+(bigint &&other) {
-        return (*this) + other;
-    }
+    bigint operator+(bigint &&other) { return (*this) + other; }
     bigint operator-(bigint &other) {
         this->__reverse(this->data), other.__reverse(other.data);
         int maxim = max(this->size(), other.size()), minim = min(this->size(), other.size());
@@ -93,18 +91,10 @@ struct bigint {
         __reverse(temp);
         return bigint(temp);
     }
-    bigint operator-(bigint &&other) {
-        return (*this) - other;
-    }
-    bigint& operator--() {
-        return *this = (*this) - bigint("1");
-    }
-    bigint operator++() {
-        return *this = (*this) + bigint("1");
-    }
-    string to_binary() {
-        return __to_binary(this->data);
-    }
+    bigint operator-(bigint &&other) { return (*this) - other; }
+    bigint& operator--() { return *this = (*this) - bigint("1"); }
+    bigint& operator++() { return *this = (*this) + bigint("1"); }
+    string to_binary() { return __to_binary(this->data); }
     string divide_by_2(const string &temp) {
         int iter = 0, curr = 0;
         string res;
@@ -133,21 +123,40 @@ struct bigint {
         int upper = temp.size() / 2;
         for(int i = 0; i < upper; i++)  swap(temp[i], temp[temp.size() - i - 1]);
     }
-    inline size_t size() {
-        return this->data.size();
+    inline size_t size() { return this->data.size(); }
+    friend ostream& operator<<(ostream &os, bigint &b) { os << b.data; return os; }
+    friend ostream& operator<<(ostream &os, bigint &&b) { os << b.data; return os; }
+    inline void __pop_zeros(string &temp) { while(temp.size() > 1 && temp.back() == '0')    temp.pop_back(); }
+    bool is_even() { return (this->data.back() - '0') % 2 == 0; }
+    void add(int idx, int val, string &x) { // add val to idx of x and backtrack
+        while(idx >= x.size())   x.push_back('0');
+        while(idx >= 0) {
+            if(x[idx] - '0' + val > 9) {
+                int temp = (x[idx] - '0' + val);
+                x[idx] = '0' + (temp % 10);
+                val = temp / 10;
+            } else {
+                x[idx] += val;
+                return ;
+            }
+            idx--;
+        }
     }
-    friend ostream& operator<<(ostream &os, bigint &b) {
-        os << b.data; return os;
+    bigint operator*(bigint &other) {
+        string temp;
+        for(int i = 0, base = 1; i < this->size(); i++, base++) {
+            for(int j = 0, x = base; j < other.size(); j++, x++) {
+                int prod = (this->data[i] - '0') * (other.data[j] - '0');
+                add(x, prod / 10, temp);
+                add(x+1, prod % 10, temp);
+            }
+        }
+        __reverse(temp);
+        __pop_zeros(temp);
+        __reverse(temp);
+        return bigint(temp);
     }
-    friend ostream& operator<<(ostream &os, bigint &&b) {
-        os << b.data; return os;
-    }
-    inline void __pop_zeros(string &temp) {
-        while(temp.size() > 1 && temp.back() == '0')    temp.pop_back();
-    }
-    bool is_even() {
-        return (this->data.back() - '0') % 2 == 0;
-    }
+    bigint operator*(bigint &&other) { return (*this) * other; }
 };
 
 int main() {
