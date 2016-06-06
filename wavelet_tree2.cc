@@ -2,7 +2,7 @@
  * Author:     Ankit Sultana
  * DS:         Wavelet Tree
  */
-#include <stdio.h>
+#include <iostream>
 #include <algorithm>
 #include <vector>
 #define gc getchar_unlocked
@@ -44,7 +44,7 @@ struct wavelet_tree {
     }
     // Count occurrences of q till index i of sequence S
     int Rank(node *S, int q, int i) const {
-        if(S->low == S->high)  return i;
+        if(S->low == S->high)  return cout << S->low << endl, (S->low == q) * i;
         if(S->left->high >= q) return Rank(S->left, q, S->mapLeft(i));
         return Rank(S->right, q, S->mapRight(i));
     }
@@ -67,24 +67,13 @@ struct wavelet_tree {
     }
 };
 
-int arr[MAXN];
-wavelet_tree tester;
 
 int main() {
-    int n, q;
-    int a, b, c;
-    scanint(n), scanint(q);
-    for(int i = 1; i <= n; i++) {
-        scanint(arr[i-1]);
-    }
-    int minim = *min_element(arr, arr + n);
-    int maxim = *max_element(arr, arr + n);
-    tester.build(arr, arr + n, minim, maxim, tester.ROOT);
-    while(q--) {
-        scanint(a), scanint(b), scanint(c);
-        int val = tester.RangeQuantile(tester.ROOT, a, b, c);
-        printf("%d\n", val);
-        //printf("%d\n", cmp[] - 1);
-    }
+    vector<int> arr = {1, 2, 3, 4, 1, 1000, 3};
+    wavelet_tree tester;
+    tester.build(arr.begin(), arr.end(), *min_element(arr.begin(), arr.end()),
+                                         *max_element(arr.begin(), arr.end()),
+                                         tester.ROOT);
+    cout << tester.Rank(tester.ROOT, 5, 7) << '\n';
     return 0;
 }
