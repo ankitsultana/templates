@@ -16,7 +16,7 @@ struct suffix_array {
     void build(string &s) {
         if(size == 0)   clear();
         this->s = s;
-        this->size = 0;
+        this->size = s.size();
         int i, j;
         fill(cnt, cnt + sizeof(cnt), 0);
         int n = s.size();
@@ -50,8 +50,43 @@ struct suffix_array {
         }
         for(int i = 0; i < n; i++) arr[i] = pos[1][i];
     }
+    template<typename iter>
+    int cmp(iter a1, iter a2, iter b1, iter b2) {
+        int a_size = a2 - a1, b_size = b2 - b1;
+        int minim = __min(a_size, b_size);
+        for(int i = 0; i < minim; i++, a1++, b1++) {
+            if(*a1 < *b1) {
+                return -1;
+            } else if(*a1 > *b1) {
+                return 1;
+            }
+        }
+        if(a_size == b_size)
+            return 0;
+        return a_size < b_size ? -1 : 1;
+    }
+    int search(string &x) { // return index where x is found
+        if(x.size() > this->s.size())   return -1;
+        int low = 0, high = size-1, mid, c;
+        while(low < high) {
+            mid = (low + high) >> 1;
+            c = cmp(this->s.begin() + arr[mid], this->s.begin() + min(this->s.size(), arr[mid] + x.size()),
+                    x.begin(), x.end());
+            if(c < 0) { // s < x
+                low = mid + 1;
+            } else if(c > 0) { // s > x
+                high = mid;
+            } else {
+                return arr[mid];
+            }
+        }
+        c = cmp(this->s.begin() + arr[low], this->s.begin() + min(this->s.size(), arr[low] + x.size()),
+                x.begin(), x.end());
+        return c == 0 ? low : -1;
+    }
 private:
     inline int __max(int a, int b) { return a - ((a-b) & (a-b)>>31); }
+    inline int __min(int a, int b) { return b + ((a-b) & (a-b)>>31); }
 };
 
 int main() {
