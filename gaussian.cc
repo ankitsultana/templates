@@ -25,6 +25,24 @@ void gaussian(vector<vector<T> > m) {
         }
         row++;
     } // m is now in Reduced Echelon
+    // Back Substitution
+    vector<T> vals(m[0].size() - 1, 0);
+    for(int r = m.size() - 1; r >= 0; r--) {
+        int f = -1;
+        for(int c = 0; c < m[0].size() - 1; c++) {
+            if(m[r][c]) {
+                f = c; break;
+            }
+        }
+        if(f != -1) {
+            T rhs = m[r].back();
+            for(int i = f+1; i < m[r].size() - 1; i++) {
+                rhs -= m[r][i] * vals[i];
+            }
+            rhs /= m[r][f];
+            vals[f] = rhs;
+        }
+    }
 }
 
 const int BT_LEN = 10;
