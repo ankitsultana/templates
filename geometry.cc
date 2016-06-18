@@ -95,3 +95,22 @@ bool pip(point<T> x, point<T> polygon[], int n) {
 /*
  * Geometry Crap Ends
  */
+
+/* Sort points by angle
+ 
+template<typename T>
+struct point {
+    T x, y;
+    bool operator<(const point<T> &other) const {
+        if(isRight() != other.isRight()) return isRight();
+        return x * other.y - y * other.x < 0;
+    }
+    bool operator==(const point<T> &other) const {
+        return !((*this < other) or (other < *this));
+    }
+    bool isRight() const {
+        return x == 0 ? y > 0 : x > 0;
+    }
+};
+
+*/
