@@ -3,8 +3,7 @@
 long double PI = 2.0*atan2l(1,0);
 
 typedef complex<double> base;
-void fft(vector<base> & a, bool invert)
-{
+void fft(vector<base> & a, bool invert) {
 	int n = (int)a.size();
 
 	for(int i=1, j=0; i<n; ++i){
@@ -15,7 +14,7 @@ void fft(vector<base> & a, bool invert)
 		if(i < j)
 			swap (a[i], a[j]);
 	}
-	for(int len=2; len<=n; len<<=1){
+	for(int len=2; len<=n; len<<=1) {
 		double ang = 2*PI/len * (invert ? -1 : 1);
 		base wlen (cos(ang), sin(ang));
 		for (int i=0; i<n; i+=len){
@@ -32,9 +31,7 @@ void fft(vector<base> & a, bool invert)
 		for(int i=0; i<n; ++i)
 			a[i] /= n;
 }
-
-void multiply(const vector<int> & a, const vector<int> & b, vector<int> & res)
-{
+void multiply(const vector<int> & a, const vector<int> & b, vector<int> & res) {
 	vector<base> fa(a.begin(), a.end()), fb(b.begin(), b.end());
 	size_t n = 1;
 	while(n < max (a.size(), b.size()))

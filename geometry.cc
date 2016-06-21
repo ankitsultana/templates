@@ -23,7 +23,7 @@ double dist(point<T> a, point<T> b) {
 // area of triangle formed by three points (a, b, c)
 template<typename T>
 T area_of_triangle(point<T> a, point<T> b, point<T> c) {
-    return (a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y)) / 2;
+    return fabs((a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y)) / 2);
 }
 
 // check if (a, b, c) are collinear
