@@ -1,5 +1,8 @@
 #include <cstring>
-class Dinic{
+#include <vector>
+using namespace std;
+class Dinic {
+    static const int MAXN = 1000, INF = 1e9;
 	private:
 		struct edge {
 			int a, b, cap, flow;
