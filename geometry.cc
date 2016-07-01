@@ -1,3 +1,5 @@
+#include <cmath>
+#include <iostream>
 /*
  * Geometry Crap
  */
@@ -51,7 +53,6 @@ int orientation(point<T> p, point<T> q, point<T> r) {
     if(val == 0)    return 0;
     return val > 0 ? -1: 1;
 }
-
 // check if p1q1 and p2q2 intersect
 template<typename T>
 bool segments_intersect(point<T> p1, point<T> q1, point<T> p2, point<T> q2) {
@@ -62,13 +63,13 @@ bool segments_intersect(point<T> p1, point<T> q1, point<T> p2, point<T> q2) {
     if (o1 != o2 and o3 != o4)  return true;
     // Special Cases
     // p1, q1 and p2 are colinear and p2 lies on segment p1q1
-    if (o1 == 0 && on_segment(p1, p2, q1)) return true;
+    if (o1 == 0 && on_segment(p1, q1, p2)) return true;
     // p1, q1 and p2 are colinear and q2 lies on segment p1q1
-    if (o2 == 0 && on_segment(p1, q2, q1)) return true;
+    if (o2 == 0 && on_segment(p1, q1, q2)) return true;
     // p2, q2 and p1 are colinear and p1 lies on segment p2q2
-    if (o3 == 0 && on_segment(p2, p1, q2)) return true;
+    if (o3 == 0 && on_segment(p2, q2, p1)) return true;
      // p2, q2 and q1 are colinear and q1 lies on segment p2q2
-    if (o4 == 0 && on_segment(p2, q1, q2)) return true;
+    if (o4 == 0 && on_segment(p2, q2, q1)) return true;
     return false;
 }
 
@@ -92,12 +93,24 @@ bool pip(point<T> x, point<T> polygon[], int n) {
     return false;
 }
 
+template<typename T>
+double directed_angle(point<T> a, point<T> o, point<T> b) {
+    const double PI = atan2(0, -1);
+    a.x -= o.x, a.y -= o.y, b.x -= o.x, b.y -= o.y;
+    double one = atan2(a.y, a.x);
+    double two = atan2(b.y, b.x);
+    one -= two;
+    if(one > PI) one -= 2.0 * PI;
+    if(one < -PI) one += 2.0 * PI;
+    return one;
+}
+
 /*
  * Geometry Crap Ends
  */
 
 /* Sort points by angle
- 
+
 template<typename T>
 struct point {
     T x, y;
