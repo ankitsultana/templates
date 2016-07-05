@@ -2,7 +2,7 @@
 int c_par[MAXN];
 int subtree[MAXN];
 bool dead[MAXN];
-vector<int> c_tree[MAXN];
+vector<int> c_tree[MAXN],adj[MAXN];
 
 int size_dfs(int v, int prev) {
 	if(dead[v])	return 0;

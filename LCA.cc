@@ -29,7 +29,7 @@ int LCA(int u, int v) {
 		u = pa[u][i], v= pa[v][i];
 	return pa[u][0];
 }
-int distance(int u, int v) {
+int dist(int u, int v) {
 	int l = LCA(u, v);
 	return (depth[u] - depth[l]) + (depth[v] - depth[l]);
 }

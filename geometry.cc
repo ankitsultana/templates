@@ -68,7 +68,7 @@ bool segments_intersect(point<T> p1, point<T> q1, point<T> p2, point<T> q2) {
     if (o2 == 0 && on_segment(p1, q1, q2)) return true;
     // p2, q2 and p1 are colinear and p1 lies on segment p2q2
     if (o3 == 0 && on_segment(p2, q2, p1)) return true;
-     // p2, q2 and q1 are colinear and q1 lies on segment p2q2
+    // p2, q2 and q1 are colinear and q1 lies on segment p2q2
     if (o4 == 0 && on_segment(p2, q2, q1)) return true;
     return false;
 }
