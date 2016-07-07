@@ -14,3 +14,7 @@ void preprocess() {
 	}
 	assert((fact[2]*ifact[2])%mod == 1);
 }
+
+LL nCr(int n, int r) {
+    return (fact[n] * ((ifact[n-r] * ifact[r])%mod)) % mod;
+}
