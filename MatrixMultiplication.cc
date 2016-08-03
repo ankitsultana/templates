@@ -19,7 +19,7 @@ void mul(T a[], T b[], T c[]) {
 }
 LL temp[SIZE][SIZE];
 template<typename T>
-void matrix_expo(T a[], int e, T b[]) {
+void matrix_expo(T a[], LL e, T b[]) {
 	std::copy(&a[0][0], &a[0][0] + SIZE*SIZE, &temp[0][0]);
 	std::fill(&b[0][0], &b[0][0] + SIZE*SIZE, 0);
 	for(int i = 0; i < SIZE; i++)	b[i][i] = 1;

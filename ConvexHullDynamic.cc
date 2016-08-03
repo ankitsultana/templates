@@ -1,5 +1,4 @@
-#define MAXN 1000003
-const LL is_query = -(1LL<<62);
+const long long is_query = -(1LL<<62);
 struct Line {
     LL m, b;
     mutable function<const Line*()> succ;
