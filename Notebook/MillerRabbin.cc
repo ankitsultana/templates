@@ -25,13 +25,8 @@ inline LL power(LL a, LL b, const LL &m) {
 
 // Returns true if p is prime
 inline bool Miller(LL p) {
-	int b[]={2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97};
 	if(p < 2)	return false;  
 	if(p != 2 && !(p&1))	return false;
-	for(int i = 0; i < 25; i++) {
-		if(p == b[i])	return true;  
-		else if(p % b[i] == 0)	return false;
-	}
 	int cnt = 0;
 	LL s = p-1;
 	while(!(s&1)) {

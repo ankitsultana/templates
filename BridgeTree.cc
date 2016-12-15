@@ -57,9 +57,7 @@ void compress_bridge_components(int node, int comp_no, bool vis[])
 		compress_bridge_components(adj[node][i].first, is_bridge[adj[node][i].second]?++global_iter: comp_no, vis);
 	}
 }
-
-void make_bridge_tree()
-{
+void make_bridge_tree() {
     for(int i = 1; i <= n; i++) {
         for(int j = 0; j < adj[i].size(); j++) {
 			if(is_bridge[adj[i][j].second]){
@@ -68,9 +66,7 @@ void make_bridge_tree()
 		}
 	}
 }
-
-void solve()
-{
+void solve() {
     for(int i = 1; i <= n; i++) {
 		if(vis[i])	continue;
 		ROOT = i;

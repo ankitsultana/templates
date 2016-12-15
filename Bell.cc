@@ -1,6 +1,5 @@
 LL S[MAXN][MAXN] = {0}, n;
-void stirling_second_kind()
-{
+void stirling_second_kind() {
 	S[0][0] = 1;
     for(int i = 0; i < MAXN; i++) {
 		if(i == 0)	continue;
@@ -11,8 +10,7 @@ void stirling_second_kind()
 }
 
 LL B[MAXN] = {0};
-void bell()
-{
+void bell() {
 	stirling_second_kind();
     for(int i = 0; i < MAXN; i++) {
         for(int j = 0; j <= i; j++) {

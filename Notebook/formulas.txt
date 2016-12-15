@@ -1,0 +1,24 @@
+Stirling Number of Second Kind:
+    S[i][j] = k * S[i-1][k] + S[i-1][k-1]
+B[i] = sum(row of S[i])
+Catalan Numbers: (1/(n+1)) * (2nCn)
+
+LL catalan[MAXN] = {0};
+void precomp_catalan() {
+	catalan[1] = (catalan[0] = 1);
+    for(int i = 2; i < MAXN; i++) {
+        for(int j = 0; j < i; j++) {
+			catalan[i] = (catalan[i]+(catalan[j]*catalan[i-1-j])%mod)%mod;
+		}
+	}
+}
+
+#define MAXN 51
+double dearange[MAXN];
+template<typename T>
+void compute_derangement(T dearange[]) {
+	dearange[0] = 1, dearange[1] = 0;
+    for(int i = 2; i < MAXN; i++) {
+		dearange[i] = (i-1)*(dearange[i-1] + dearange[i-2]);
+	}
+}

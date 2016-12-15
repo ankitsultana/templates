@@ -1,5 +1,4 @@
-int booth(string s)
-{
+int booth(string s) {
 	s += s;
 	vector<int> f(s.size(), -1);
 	int k = 0, size = int(s.size()), i;
@@ -23,9 +22,7 @@ int booth(string s)
 	}
 	return k;
 }
-
-string get_minimal(string s)
-{
+string get_minimal(string s) {
 	int rot = booth(s), n = int(s.size());
 	string temp(s);
 	int iter = 0;
