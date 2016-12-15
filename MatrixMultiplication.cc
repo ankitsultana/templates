@@ -12,8 +12,8 @@ template<typename T>
 void mul(T a[], T b[], T c[]) {
 	std::fill(&dummy[0][0], &dummy[0][0] + SIZE*SIZE, 0);
 	for(int i = 0; i < SIZE; i++)
-		for(int j = 0; j < SIZE; j++)
-			for(int k = 0; k < SIZE; k++)
+		for(int k = 0; k < SIZE; k++)
+		    for(int j = 0; j < SIZE; j++)
 				dummy[i][j] = (dummy[i][j] + (a[i][k] * b[k][j])) % mod;
 	std::copy(&dummy[0][0], &dummy[0][0] + SIZE*SIZE, &c[0][0]);
 }

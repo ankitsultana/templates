@@ -26,7 +26,7 @@ int LCA(int u, int v) {
 	for(int i = 0; i < MAXLOGN; i++) if((diff>>i)&1) u = pa[u][i];
 	if(u == v) return u;
 	for(int i = MAXLOGN-1; i > -1; i--) if(pa[u][i] != pa[v][i])
-		u = pa[u][i], v= pa[v][i];
+		u = pa[u][i], v = pa[v][i];
 	return pa[u][0];
 }
 int dist(int u, int v) {

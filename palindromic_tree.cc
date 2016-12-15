@@ -9,6 +9,7 @@ struct palin_tree {
             curr = tree[curr].sufflink;
         }
         if(tree[curr].nxt[let]) {
+            last = tree[curr].nxt[let];
             return false;
         }
         num_nodes++;

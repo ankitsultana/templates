@@ -8,7 +8,7 @@ void preprocess() {
     for(int i = 1; i < MAXN; i++) {
 		fact[i] = (fact[i-1]*i)%mod;
 	}
-	ifact[MAXN-1] = modinv(fact[MAXN-1]);
+	ifact[MAXN-1] = modinv(fact[MAXN-1], mod);
 	for(LL i = MAXN-2; i > 0; i--){
 		ifact[i] = (ifact[i+1]*(i+1))%mod;
 	}

@@ -13,7 +13,7 @@ class Dinic {
 	public:
 		//takes in number of nodes source and sink
 		Dinic(int a, int b, int c): n(a), s(b), t(c) {	}
-		void add_edge (int a, int b, int cap) {
+		void add_edge(int a, int b, int cap) {
 			edge e1 = { a, b, cap, 0 };
 			edge e2 = { b, a, 0, 0 };
 			g[a].push_back ((int) e.size());

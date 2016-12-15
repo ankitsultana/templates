@@ -1,7 +1,4 @@
-class DSU {
-private:
-    int V, Rank[MAXN], P[MAXN];
-public:
+struct DSU {
     DSU(int x) {
         V = x;
         for(int i = 0; i <= x; i++)
@@ -20,4 +17,5 @@ public:
         else
             Rank[yr] += Rank[xr], P[xr] = yr;
     }
+    int V, Rank[MAXN], P[MAXN];
 };
