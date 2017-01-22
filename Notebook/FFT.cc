@@ -44,11 +44,11 @@ namespace FFT {
         for(int i = 0; i < b.size(); i++) fa[i] += base(0, b[i]);
         fft(fa, false);
         for(int i = 0; i <= p/2; i++) {
-            base bp = fa[i] + fa[(p - i) % p].conj();
-            base _q = fa[(p - i) % p] - fa[i].conj();
+            base bp = fa[i] + conj(fa[(p - i) % p]);
+            base _q = fa[(p - i) % p] - conj(fa[i]);
             base q(_q.imag(), _q.real());
             fa[i] = (bp * q) * 0.25;
-            if(i > 0) fa[p - i] = fa[i].conj();
+            if(i > 0) fa[p - i] = conj(fa[i]);
         }
         fft(fa, true);
         res.resize(p);

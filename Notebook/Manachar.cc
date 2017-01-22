@@ -37,4 +37,3 @@ void manachar(const string &input) {
         }
 	}
 }
-

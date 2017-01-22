@@ -1,5 +1,4 @@
 int P[MAXN] = {0};
-
 void prefix(const string &p) {
 	int size = (int)p.size(), k = 0;
 	P[0] = 0;
