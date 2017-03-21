@@ -1,4 +1,4 @@
-bool is_prime[MAXN] = {false};
+bool is_prime[MAXN];
 vector<int> primes;
 void sieve_eratosthenes() {
 	std::fill(&is_prime[0], &is_prime[0] + MAXN, true);
